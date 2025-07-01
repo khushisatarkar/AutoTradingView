@@ -10,9 +10,9 @@ from selenium.common.exceptions import TimeoutException
 import tkinter as tk
 from tkinter import filedialog, simpledialog
 
-# --- Ask User for Excel File and Column ---
+# get excel file and column from user
 root = tk.Tk()
-root.withdraw()  # Hide the main tkinter window
+root.withdraw()  # hide the main tkinter window
 
 excel_path = filedialog.askopenfilename(
     title="Select Excel file",
@@ -30,18 +30,18 @@ if not column_letter:
     print("No column selected. Exiting.")
     exit()
 
-# --- Load Excel ---
+# load excel
 workbook = load_workbook(excel_path)
 sheet = workbook.active
 
-# --- Launch Browser ---
+# launch browser
 driver = webdriver.Chrome()
 driver.get("https://in.tradingview.com/chart/")
 wait = WebDriverWait(driver, 10)
 
-time.sleep(5)  # Let the page load
+time.sleep(5)  # let the page load
 
-# --- Function to search symbol ---
+# function to search symbols
 def search_symbol(symbol):
     try:
         body = driver.find_element(By.TAG_NAME, "body")
@@ -66,7 +66,8 @@ def search_symbol(symbol):
     except Exception as e:
         print(f"Error searching symbol {symbol}: {e}")
 
-# --- Main Execution Loop ---
+
+
 current_row = 2
 max_rows = 101
 
@@ -91,3 +92,4 @@ while current_row <= max_rows:
             driver.quit()
             exit()
         time.sleep(0.1)
+
